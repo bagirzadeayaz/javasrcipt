@@ -31,15 +31,32 @@ class Task {
         this.createdAt = new Date().toLocaleString('ru'); 
         this.isCompleted = false; 
     }
-
-
-    toggleComplete() {
-        this.isCompleted = !this.isCompleted; 
-    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("addTaskForm");
+    const taskListElement = document.getElementById("taskList");
+
+    const renderTasks = () => {
+        taskListElement.innerHTML = "";
+        taskList.tasks.forEach((task) => {
+            const taskItem = document.createElement("li");
+            taskItem.className = "task-item";
+
+            taskItem.innerHTML = `
+                <h3>${task.id}</h3>
+                <button data-id="${task.id}" class="toggle-complete">
+                    ${task.isCompleted ? "Mark as Incomplete" : "Mark as Complete"}
+                </button>
+                <button class="edit-task">Edit</button>
+                <button data-id="${task.id}" class="delete-task">Delete</button>
+            `;
+
+            taskListElement.appendChild(taskItem);
+        });
+    };
+
+    renderTasks();
 
     form.addEventListener("submit", (event) => {
         event.preventDefault(); 
@@ -62,5 +79,29 @@ document.addEventListener("DOMContentLoaded", () => {
         taskList.addTask(newTask);
 
         form.reset();
+
+        renderTasks();
+    });
+
+    taskListElement.addEventListener("click", (event) => {
+        const target = event.target;
+
+        if (target.classList.contains("toggle-complete")) {
+            const taskId = Number(target.dataset.id);
+            const task = taskList.tasks.find((task) => task.id === taskId);
+            if (task) {
+                task.isCompleted = !task.isCompleted;
+                taskList.saveTasks();
+                renderTasks();
+            }
+        }
+
+        if (target.classList.contains("delete-task")) {
+            const taskId = Number(target.dataset.id);
+            taskList.tasks = taskList.tasks.filter((task) => task.id !== taskId);
+            taskList.saveTasks();
+            renderTasks();
+        }
     });
 });
+
