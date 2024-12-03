@@ -50,7 +50,7 @@ h2 {
     color: #363636;
 }
 
-#addTaskForm input, #addTaskForm textarea {
+input {
     width: 100%;
     padding: 12px;
     margin-bottom: 15px;
@@ -60,7 +60,8 @@ h2 {
     box-sizing: border-box;
 }
 
-#addTaskForm button {
+#addTaskForm button,
+#editTaskForm button {
     width: 100%;
     padding: 12px;
     background-color: black;
@@ -138,9 +139,10 @@ li.task-item h3 {
 
 .task-item button.toggle-complete {
     background-color: #4CAF50;
+    width: 150px;
 }
 
-.task-item button.edit-task {
+.task-item a.edit-task {
     background-color: yellowgreen;
 }
 
@@ -148,7 +150,8 @@ li.task-item h3 {
     background-color: #f44336;
 }
 
-button {
+button,
+a {
     width: auto;
     margin: 5px;
     padding: 8px;
@@ -157,6 +160,19 @@ button {
     color: white;
 }
 
+a{
+    font-size: 15px;
+    text-decoration: none;
+}
+
 button:hover {
     opacity: 0.8;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+#backButton {
+    background-color: gray;
 }

@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button data-id="${task.id}" class="toggle-complete">
                     ${task.isCompleted ? "Mark as Incomplete" : "Mark as Complete"}
                 </button>
-                <button class="edit-task">Edit</button>
+                <a href="edit.html?id=${task.id}" class="edit-task">Edit</a>
                 <button data-id="${task.id}" class="delete-task">Delete</button>
             `;
 
