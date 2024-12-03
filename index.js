@@ -1,10 +1,20 @@
 class TaskList {
     constructor() {
-        this.tasks = [];
+        this.tasks = this.loadTasks();
     }
 
     addTask(task) {
         this.tasks.push(task);
+        this.saveTasks();
+    }
+
+    saveTasks() {
+        localStorage.setItem("tasks", JSON.stringify(this.tasks)); 
+    }
+
+    loadTasks() {
+        const tasksJson = localStorage.getItem("tasks");
+        return tasksJson ? JSON.parse(tasksJson) : [];
     }
 }
 
