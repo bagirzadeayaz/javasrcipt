@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <link rel="stylesheet" href="index.css">
+    <script defer src="index.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tasks List</h1>
+        </header>
+        
+        <section class="task-add">
+            <h2>Add Task</h2>
+
+            <form id="addTaskForm">
+                <fieldset>
+                    <legend>Name</legend>
+                    <input type="text" id="taskTitle" placeholder="Name of task">
+                </fieldset>
+
+                <fieldset>
+                    <legend>Description</legend>
+                    <input id="taskDescription" placeholder="Description"></input>
+                </fieldset>
+
+                <button>Add Task</button>
+            </form>
+        </section>
+
+        <section class="task-list">
+            <h2>Your tasks</h2>
+            <ul id="taskList"></ul>
+        </section>
+    </div>
+</body>
+</html>
