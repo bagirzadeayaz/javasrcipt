@@ -1,12 +1,10 @@
 class TaskList {
-    #tasks;
-
     constructor() {
-        this.#tasks = this.loadTasks();
+        this.tasks = this.loadTasks();
     }
 
     addTask(task) {
-        this.#tasks.push(task);
+        this.tasks.push(task);
         this.saveTasks();
     }
 
@@ -18,29 +16,20 @@ class TaskList {
         const tasksJson = localStorage.getItem("tasks");
         return tasksJson ? JSON.parse(tasksJson) : [];
     }
-
-    getTasks(){
-        return this.#tasks;
-    }
 }
 
 const taskList = new TaskList();
 
 class Task {
-    #id;
-    #title;
-    #description;
-    #createdAt;
-    #isCompleted;
     constructor(title, description) {
         if (!title || !title.trim()) alert("Name can not be empty!");
         if (!description || !description.trim()) alert("Description can not be empty!");
 
-        this.#id = Date.now();
-        this.#title = title;
-        this.#description = description; 
-        this.#createdAt = new Date().toLocaleString('ru'); 
-        this.#isCompleted = false;
+        this.id = Date.now();
+        this.title = title;
+        this.description = description; 
+        this.createdAt = new Date().toLocaleString('ru'); 
+        this.isCompleted = false;
     }
 }
 
@@ -50,9 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const renderTasks = () => {
         taskListElement.innerHTML = "";
-        taskList.getTasks().forEach((task) => {
+        taskList.tasks.forEach((task) => {
             const taskItem = document.createElement("li");
-            taskItem.className = "task-item";
+            taskItem.className = `task-item ${task.isCompleted ? "completed" : ""}`;
 
             taskItem.innerHTML = `
                 <h3>${task.id}</h3>
@@ -65,6 +54,29 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
 
             taskListElement.appendChild(taskItem);
+        });
+
+        applyFilter();
+    };
+
+    const applyFilter = () => {
+        const filterValue = filterOptions.value;
+        const tasks = document.querySelectorAll("#taskList li");
+
+        tasks.forEach((task) => {
+            const isCompleted = task.classList.contains("completed");
+
+            switch (filterValue) {
+                case "all":
+                    task.style.display = "";
+                    break;
+                case "completed":
+                    task.style.display = isCompleted ? "" : "none";
+                    break;
+                case "incomplete":
+                    task.style.display = isCompleted ? "none" : "";
+                    break;
+            }
         });
     };
 
@@ -115,5 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
             renderTasks();
         }
     });
+    filterOptions.addEventListener("change", applyFilter);
 });
 

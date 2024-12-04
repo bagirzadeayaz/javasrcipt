@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const taskId = urlParams.get('id');
 
     if (taskId) {
-        const task = taskList.getTasks().find(t => t.id === parseInt(taskId, 10));
+        const task = taskList.tasks.find(t => t.id === parseInt(taskId, 10));
         if (task) {
             document.getElementById("taskId").textContent = taskId;
             document.getElementById("taskTitle").textContent = task.title;

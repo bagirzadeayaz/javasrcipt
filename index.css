@@ -201,3 +201,32 @@ a:hover {
 .task-details strong {
     font-weight: bold;
 }
+
+.filter {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+#filterOptions {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#filterOptions:hover {
+    border-color: #888;
+    background-color: #f1f1f1;
+}
