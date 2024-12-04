@@ -80,6 +80,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
+    const sortTasks = (sortValue) => {
+        switch (sortValue) {
+            case "date":
+                taskList.tasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                break;
+            case "name":
+                taskList.tasks.sort((a, b) => a.title.localeCompare(b.title)); 
+                break;
+            case "not-sorted":
+                taskList.tasks = taskList.loadTasks();
+                break;
+        }
+        renderTasks(); 
+    };
+
     renderTasks();
 
     form.addEventListener("submit", (event) => {
@@ -128,5 +143,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     filterOptions.addEventListener("change", applyFilter);
+
+    sortOptions.addEventListener("change", function() {
+        const sortValue = this.value;
+        sortTasks(sortValue);
+    });
 });
 
