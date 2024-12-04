@@ -103,14 +103,72 @@ document.addEventListener("DOMContentLoaded", () => {
         const title = document.getElementById("taskTitle").value;
         const description = document.getElementById("taskDescription").value;
 
+        const titleWords = title.split(' ').filter(word => word.length > 0); 
+
+        if (titleWords.length < 2) {
+            alert("Title must contain at least two words!");
+            return;
+        }
+
+        for (const word of titleWords) {
+            if (word.length > 16) {
+                alert("The maximum length of a word is 16 letters!");
+                return;
+            }
+        }   
+
         if (!title || !title.trim()) {
             alert("Name can not be empty!");
             return; 
         }
 
+        if (title !== title.trim()) {
+            alert("Title should not have whitespace at the beginning or the end!");
+            return;
+        }
+
+        if (/ {2,}/.test(title)) {
+            alert("There should be only one space between words in the title!");
+            return;
+        }
+
+        for (const word of titleWords) {
+            if (!/^[a-zA-Z]+$/.test(word) && !/^[а-яА-Я]+$/.test(word) && !/^\d+$/.test(word)) {
+                alert("Each word must consist of either only English letters, only Russian letters, or only digits!");
+                return;
+            }
+        }
+
+        if (titleWords.every(word => !isNaN(word))) {
+            alert("Title cannot consist only of numbers!");
+            return;
+        }
+
+        const descriptionWords = description.split(' ').filter(word => word.length > 0); 
+
+
         if (!description || !description.trim()) {
             alert("Description can not be empty!");
             return; 
+        }
+
+        for (const word of descriptionWords) {
+            if (!/^[a-zA-Z]+$/.test(word) && !/^[а-яА-Я]+$/.test(word) && !/^\d+$/.test(word)) {
+                alert("Each word must consist of either only English letters, only Russian letters, or only digits!");
+                return;
+            }
+        }
+
+        for (const word of descriptionWords) {
+            if (word.length > 16) {
+                alert("The maximum length of a word is 16 letters!");
+                return;
+            }
+        } 
+        
+        if (description.trim() === title.trim()) {
+            alert("Description cannot be the same as the title!");
+            return;
         }
 
         const newTask = new Task(title, description);
